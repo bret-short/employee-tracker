@@ -1,0 +1,24 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "MYSQL employee tracking command line application",
+  "main": "index.js",
+  "dependencies": {
+    "-": "^0.0.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bret-short/employee-tracker.git"
+  },
+  "author": "Bret Short",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bret-short/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/bret-short/employee-tracker#readme"
+}
