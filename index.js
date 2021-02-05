@@ -374,5 +374,28 @@ function deleteDepartmentPrompt() {
       });
   });
 }
-
+// Grabs all departments, asks user for which one they want to see sum of salaries, then calls input function to query database and display results
+function displayUtilizedBudgetPrompt() {
+  input.getDepartments().then(function (depts) {
+    const deptArray = [];
+    for (let i = 0; i < depts.length; i++) {
+      deptArray.push(depts[i].name);
+    }
+    inquirer
+      .prompt({
+        type: "list",
+        message:
+          "For which department would you like to view the utilized budget?",
+        choices: deptArray,
+        name: "dept",
+      })
+      .then(function ({ dept }) {
+        const deptId = depts[deptArray.indexOf(dept)].id;
+        input.viewUtilizedBudget(deptId).then(function () {
+          console.log("\n");
+          mainMenu();
+        });
+      });
+  });
+}
 mainMenu();
