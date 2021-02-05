@@ -304,6 +304,30 @@ function displayByMgrPrompt() {
   });
 }
 
+// Grabs all employees, asks user which one they want to delete, then calls input function to delete it from the database
+function deleteEmployeePrompt() {
+  input.getEmployees().then(function (employees) {
+    const empArray = [];
+    for (let i = 0; i < employees.length; i++) {
+      empArray.push(employees[i].name);
+    }
+    inquirer
+      .prompt({
+        type: "list",
+        message: "Which employee would you like to delete?",
+        choices: empArray,
+        name: "employee",
+      })
+      .then(function ({ employee }) {
+        const empId = employees[empArray.indexOf(employee)].id;
+        input.deleteRecord("employees", empId).then(function () {
+          console.log("\n");
+          mainMenu();
+        });
+      });
+  });
+}
+
 
 
 mainMenu();
