@@ -351,5 +351,28 @@ function deleteRolePrompt() {
       });
   });
 }
+// Grabs all departments, asks user which one they want to delete, then calls input function to delete it from the database
+function deleteDepartmentPrompt() {
+  input.getDepartments().then(function (depts) {
+    const deptArray = [];
+    for (let i = 0; i < depts.length; i++) {
+      deptArray.push(depts[i].name);
+    }
+    inquirer
+      .prompt({
+        type: "list",
+        message: "Which department would you like to delete?",
+        choices: deptArray,
+        name: "dept",
+      })
+      .then(function ({ dept }) {
+        const deptId = depts[deptArray.indexOf(dept)].id;
+        input.deleteRecord("departments", deptId).then(function () {
+          console.log("\n");
+          mainMenu();
+        });
+      });
+  });
+}
 
 mainMenu();
