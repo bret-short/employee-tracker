@@ -328,6 +328,28 @@ function deleteEmployeePrompt() {
   });
 }
 
-
+// Grabs all roles, asks user which one they want to delete, then calls input function to delete it from the database
+function deleteRolePrompt() {
+  input.getRoles().then(function (roles) {
+    const roleArray = [];
+    for (let i = 0; i < roles.length; i++) {
+      roleArray.push(roles[i].title);
+    }
+    inquirer
+      .prompt({
+        type: "list",
+        message: "Which role would you like to delete?",
+        choices: roleArray,
+        name: "role",
+      })
+      .then(function ({ role }) {
+        const roleId = roles[roleArray.indexOf(role)].id;
+        input.deleteRecord("roles", roleId).then(function () {
+          console.log("\n");
+          mainMenu();
+        });
+      });
+  });
+}
 
 mainMenu();
