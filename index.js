@@ -280,6 +280,29 @@ function updateManagerPrompt() {
       });
   });
 }
+// Grabs all employees, asks the user for which one they want to see direct reports, then calls input function to query database and display results
+function displayByMgrPrompt() {
+  input.getEmployees().then(function (employees) {
+    const empArray = [];
+    for (let i = 0; i < employees.length; i++) {
+      empArray.push(employees[i].name);
+    }
+    inquirer
+      .prompt({
+        type: "list",
+        message: "Select the manager whose employees you would like to view",
+        choices: empArray,
+        name: "manager",
+      })
+      .then(function ({ manager }) {
+        const mgrId = employees[empArray.indexOf(manager)].id;
+        input.viewEmpsByMgr(mgrId).then(function () {
+          console.log("\n");
+          mainMenu();
+        });
+      });
+  });
+}
 
 
 
