@@ -1,6 +1,6 @@
 const input = require("./utils/input.js");
 const inquirer = require("inquirer");
-
+const cTable = require("console.table");
 // View employees, view departments, view roles, add employee, add department, add role, update role, update manager,
 // view employees by manager, delete employee, delete role, delete department, quit
 
@@ -241,6 +241,46 @@ function updateRolePrompt() {
     });
   });
 }
+// Grabs all employees, asks user which one they want to update, asks what manager the employee should have, then calls input function to update the database
+function updateManagerPrompt() {
+  input.getEmployees().then(function (employees) {
+    const empArray = [];
+    for (let i = 0; i < employees.length; i++) {
+      empArray.push(employees[i].name);
+    }
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "Select the employee whose manager you would like to update",
+          choices: empArray,
+          name: "employee",
+        },
+        {
+          type: "list",
+          message: "Select the employee's new manager",
+          choices: empArray,
+          name: "manager",
+        },
+      ])
+      .then(function ({ employee, manager }) {
+        if (employee === manager) {
+          console.log(
+            "Error - you cannot assign an employee to manage him/herself!"
+          );
+          mainMenu();
+        } else {
+          const empId = employees[empArray.indexOf(employee)].id;
+          const mgrId = employees[empArray.indexOf(manager)].id;
+          input.updateManager(empId, mgrId).then(function () {
+            console.log("\n");
+            mainMenu();
+          });
+        }
+      });
+  });
+}
+
 
 
 mainMenu();
