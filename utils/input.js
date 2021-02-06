@@ -238,7 +238,23 @@ const input = {
             });
         });
     },
-                        
+    deleteRecord: function (tableInput, recordId) {
+        return new Promise(function (resolve, reject) {
+          const queryString = "DELETE FROM ?? WHERE id = ?";
+          connection.query(
+                queryString,
+                [tableInput, recordId],
+                function (err, result) {
+                if (err) {
+                    return reject(err);
+                }
+                console.log("Record successfully deleted");
+                return resolve();
+                }
+            );
+        });
+    },
+                          
 };
 
 module.exports = input;
