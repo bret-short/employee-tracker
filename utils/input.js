@@ -213,7 +213,32 @@ const input = {
             );
         });
     },
-                      
+    viewEmpsByMgr: function (mgrId) {
+        return new Promise(function (resolve, reject) {
+          const queryString =
+            "SELECT employees.id, first_name, last_name, title, salary, name, manager_id FROM employees LEFT JOIN roles ON employees.role_id = roles.id LEFT JOIN departments ON roles.department_id = departments.id WHERE manager_id = ?";
+          connection.query(queryString, mgrId, function (err, result) {
+                if (err) {
+                    return reject(err);
+                }
+                let newTable = [];
+                for (let i = 0; i < result.length; i++) {
+                    const tableElement = {
+                        "Employee ID": result[i].id,
+                        "First Name": result[i].first_name,
+                        "Last Name": result[i].last_name,
+                        Title: result[i].title,
+                        Salary: result[i].salary,
+                        Department: result[i].name,
+                    };
+                    newTable.push(tableElement);
+                }
+                console.table(newTable);
+                return resolve();
+            });
+        });
+    },
+                        
 };
 
 module.exports = input;
