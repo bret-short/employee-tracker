@@ -14,7 +14,24 @@ const input = {
         });
     },
 
-  
+    addRole: function (roleTitle, roleSalary, deptId) {
+        return new Promise(function (resolve, reject) {
+          const queryString =
+            "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)";
+          connection.query(
+                queryString,
+                [roleTitle, roleSalary, deptId],
+                function (err, result) {
+                if (err) {
+                    return reject(err);
+                }
+                console.log("Role successfully added!");
+                return resolve();
+                }
+            );
+        });
+    },
+      
 };
 
 module.exports = input;
