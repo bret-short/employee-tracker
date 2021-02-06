@@ -149,7 +149,18 @@ const input = {
             });
         });
     },
-                
+    getDepartments: function () {
+        return new Promise(function (resolve, reject) {
+          const queryString = "SELECT * FROM departments";
+            connection.query(queryString, function (err, result) {
+                if (err) {
+                return reject(err);
+                }
+                return resolve(result);
+            });
+        });
+    },
+                  
 };
 
 module.exports = input;
