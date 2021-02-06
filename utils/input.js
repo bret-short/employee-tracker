@@ -84,7 +84,26 @@ const input = {
             });
         });
     },
-        
+    getEmployees: function () {
+        return new Promise(function (resolve, reject) {
+          const queryString = "SELECT * FROM employees";
+          connection.query(queryString, function (err, result) {
+                if (err) {
+                    return reject(err);
+                }
+                const empArray = [];
+                for (let i = 0; i < result.length; i++) {
+                    const empObj = {
+                        id: result[i].id,
+                        name: result[i].first_name + " " + result[i].last_name,
+                    };
+                    empArray.push(empObj);
+                }
+                return resolve(empArray);
+            });
+        });
+    },
+          
 };
 
 module.exports = input;
