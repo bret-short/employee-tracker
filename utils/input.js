@@ -254,7 +254,37 @@ const input = {
             );
         });
     },
-                          
+    viewUtilizedBudget: function (deptId) {
+        return new Promise(function (resolve, reject) {
+          const queryString = "SELECT * FROM roles WHERE department_id = ?";
+          connection.query(queryString, deptId, function (err, roleResult) {
+                if (err) {
+                    return reject(err);
+                }
+                let utilizedBudget = 0;
+                for (let i = 0; i < roleResult.length; i++) {
+                    const roleId = roleResult[i].id;
+                    const salary = roleResult[i].salary;
+                    const queryString = "SELECT * FROM employees WHERE role_id = ?";
+                    connection.query(queryString, roleId, function (err, empResult) {
+                        if (err) {
+                            return reject(err);
+                        }
+                        utilizedBudget += empResult.length * salary;
+                        if (i === roleResult.length - 1) {
+                            console.log(
+                                "Total department utilized budget: " + utilizedBudget
+                            );
+                            return resolve();
+                        }
+                    });
+                }
+            });
+        });
+    },
+        endConnection: function () {
+            connection.end();
+        },                      
 };
 
 module.exports = input;
