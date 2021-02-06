@@ -31,6 +31,23 @@ const input = {
             );
         });
     },
+    addEmployee: function (firstName, lastName, roleId, mgrId) {
+        return new Promise(function (resolve, reject) {
+          const queryString =
+            "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
+          connection.query(
+                queryString,
+                [firstName, lastName, roleId, mgrId],
+                function (err, result) {
+                if (err) {
+                    return reject(err);
+                }
+                console.log("Employee successfully added!");
+                return resolve();
+                }
+            );
+        });
+    },
       
 };
 
