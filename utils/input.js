@@ -190,7 +190,30 @@ const input = {
             });
         });
     },
-                    
+    updateManager: function (empId, newMgrId) {
+        return new Promise(function (resolve, reject) {
+          const queryString = "UPDATE employees SET ? WHERE ?";
+          connection.query(
+                queryString,
+                [
+                {
+                    manager_id: newMgrId,
+                },
+                {
+                    id: empId,
+                },
+                ],
+                function (err, result) {
+                    if (err) {
+                        return reject(err);
+                    }
+                    console.log("Employee's manager successfully updated!");
+                    return resolve();
+                }
+            );
+        });
+    },
+                      
 };
 
 module.exports = input;
