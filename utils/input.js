@@ -160,7 +160,37 @@ const input = {
             });
         });
     },
-                  
+    updateRole: function (empId, newRole) {
+        return new Promise(function (resolve, reject) {
+          const queryString = "SELECT id FROM roles WHERE title = ?";
+          connection.query(queryString, newRole, function (err, result) {
+                if (err) {
+                return reject(err);
+                }
+                const newRoleId = result[0].id;
+                const queryString = "UPDATE employees SET ? WHERE ?";
+                connection.query(
+                    queryString,
+                    [
+                        {
+                        role_id: newRoleId,
+                        },
+                        {
+                        id: empId,
+                        },
+                    ],
+                    function (err, result) {
+                        if (err) {
+                        return reject(err);
+                        }
+                        console.log("Employee's role successfully updated!");
+                        return resolve();
+                    }
+                );
+            });
+        });
+    },
+                    
 };
 
 module.exports = input;
