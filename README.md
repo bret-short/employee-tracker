@@ -1,8 +1,10 @@
-Employee Tracker
+# Employee Tracker
 
 This is a Node application for a business owner to use in order to view and manage departments, roles and employees in the company.
 
 This application will help to organize and plan the business. 
+
+## First
 
 In order to run the application be sure to npm install to install the necessary packages. Once installe you will want to adjust the login credentials of your MYSQL server in the connection.js file. 
 
@@ -11,44 +13,13 @@ To start your server run the command "mysql -u root -p tracker_db" in order to e
 INSERT INTO departments (id, name)
 VALUES (1, 'Sales');
 
-INSERT INTO departments (id, name)
-VALUES (2, 'Management');
-
-INSERT INTO departments (id, name)
-VALUES (3, 'Human Resouces');
-
-INSERT INTO departments (id, name)
-VALUES (4, 'Accounting');
-
 INSERT INTO roles (id, title, salary, department_id)
 VALUES (1, 'Sales', 42000, 1);
 
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (2, "Asst to the Regional Manager", 60000, 2);
+INSERT INTO employees (id, first_name, last_name, role_id, manager_id)
+VALUES (3, "Michael", "Scott", 2, 4);
 
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (3, "Regional Manager", 75000, 2);
-
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (4, "Office Manager", 65000, 2);
-
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (5, "Accountant", 70000, 4);
-
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (6, "HR Director", 100000, 3);
-
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (7, "Temp", 80000, 2);
-
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (8, "Foreman", 52000, 2);
-
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (9, "Sales", 105000, 1);
-
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (10, "Sales", 105000, 1);
+## Executing your own Application
 
 When you are happy with your tables you may exit the mysql. 
 
@@ -57,3 +28,13 @@ When you are ready to run the application simply run "node index.js"
 Use the arrow keys to navigate and the enter key to make a selection. 
 
 Simply toggle to the "Quit" button to exit the application. 
+
+## Tools Used
+* Node.js
+* Inquirer
+* MYSQL
+* MYSQL2
+* console.table
+
+## Video Demonstration
+https://drive.google.com/file/d/1AbtnaVoFm16dS5UDoUyuYZH0DGubYqr5/view
